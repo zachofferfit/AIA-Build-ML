@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Academy: Interactive Titanic Decision Trees</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>🚢 AI Academy: Interactive Titanic Survival Predictor</h1>
+        <p>Build your own decision tree models to predict who survived the tragedy.</p>
+    </header>
+
+    <div class="tab-container">
+        <div class="tab-nav">
+            <button class="tab-link active" onclick="openTab(event, 'Instructions')">Instructions</button>
+            <button class="tab-link" onclick="openTab(event, 'Tree1')">🌳 Tree 1</button>
+            <button class="tab-link" onclick="openTab(event, 'Tree2')">🌳 Tree 2</button>
+            <button class="tab-link" onclick="openTab(event, 'Tree3')">🌳 Tree 3</button>
+            <button class="tab-link" onclick="openTab(event, 'Results')">📊 Combined Results</button>
+            <button class="tab-link" onclick="openTab(event, 'Data')">📄 Raw Data</button>
+        </div>
+
+        <div id="Instructions" class="tab-content" style="display: block;">
+            <h2>Welcome to the Interactive Decision Tree Builder!</h2>
+            <p>Your goal is to create three simple decision trees to predict passenger survival on the Titanic. A decision tree makes predictions by asking a series of questions about the data.</p>
+            <h3>How It Works:</h3>
+            <ol>
+                <li><strong>Select a Tree Tab:</strong> Go to one of the "Tree" tabs to start building.</li>
+                <li><strong>Define a Rule:</strong> At the top node (the "root"), you'll see the entire dataset. Your job is to define a splitting rule.
+                    <ul>
+                        <li><strong>Feature:</strong> Choose a passenger attribute from the dropdown (e.g., 'Pclass', 'Sex', 'Age').</li>
+                        <li><strong>Operator:</strong> Choose how to compare the feature (e.g., less than `<`, equal to `==`).</li>
+                        <li><strong>Value:</strong> Set a value for your rule (e.g., for 'Age < 30' or 'Sex == "female"'). A tooltip will show you valid values for the chosen feature.</li>
+                    </ul>
+                </li>
+                <li><strong>Observe the Split:</strong> Once you set a rule, the tree will automatically split the passengers into two groups based on whether they satisfy the rule.</li>
+                <li><strong>See the Predictions:</strong> Each group is then split one more time, creating final "leaf" nodes. These nodes make a prediction: if the survival rate in that node is > 50%, it predicts 'Survived', otherwise 'Died'.</li>
+                <li><strong>Check Accuracy:</strong> Each tree tab will show you the accuracy of your single model on the training data.</li>
+                <li><strong>Combine Results:</strong> Go to the "Combined Results" tab to see how your three trees perform together! This tab shows the accuracy of an "ensemble model" that makes a final prediction based on a majority vote from your three trees. You can toggle between training and testing accuracy to see how well your models generalize to new, unseen data.</li>
+            </ol>
+            <p>Experiment with different features and rules to see if you can build the most accurate prediction model! 🤔</p>
+        </div>
+
+        <div id="Tree1" class="tab-content tree-tab-content"></div>
+        <div id="Tree2" class="tab-content tree-tab-content"></div>
+        <div id="Tree3" class="tab-content tree-tab-content"></div>
+
+        <div id="Results" class="tab-content">
+            <h2>Combined Model Performance</h2>
+            <div class="toggle-container">
+                <span>Show results for:</span>
+                <label class="switch">
+                    <input type="checkbox" id="accuracy-toggle">
+                    <span class="slider"></span>
+                </label>
+                <span id="toggle-label">Training Data</span>
+            </div>
+            <div class="results-grid">
+                <div class="result-card">
+                    <h3>Tree 1 Accuracy</h3>
+                    <p id="tree1-acc">-</p>
+                </div>
+                <div class="result-card">
+                    <h3>Tree 2 Accuracy</h3>
+                    <p id="tree2-acc">-</p>
+                </div>
+                <div class="result-card">
+                    <h3>Tree 3 Accuracy</h3>
+                    <p id="tree3-acc">-</p>
+                </div>
+                <div class="result-card">
+                    <h3>Average Accuracy</h3>
+                    <p id="avg-acc">-</p>
+                </div>
+                <div class="result-card ensemble">
+                    <h3>🏆 Ensemble Accuracy (Majority Vote)</h3>
+                    <p id="ensemble-acc">-</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="Data" class="tab-content">
+            <h2>Raw Titanic Dataset (First 100 Rows)</h2>
+            <div id="data-table-container">
+                <table id="data-table"></table>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/papaparse@5.3.0/papaparse.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
